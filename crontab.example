@@ -1,0 +1,18 @@
+# EasyCook 应用定时任务示例
+# 将此文件内容添加到服务器的crontab中
+# 使用命令: crontab -e
+
+# 每天凌晨3点执行数据库备份
+0 3 * * * /var/www/easycook/backup.sh > /var/log/easycook-backup.log 2>&1
+
+# 每小时检查一次应用状态
+0 * * * * /var/www/easycook/monitor.sh > /var/log/easycook-monitor.log 2>&1
+
+# 每周日凌晨4点重启应用服务（可选）
+0 4 * * 0 cd /var/www/easycook && docker-compose restart > /var/log/easycook-restart.log 2>&1
+
+# 每天检查SSL证书更新（如果使用Certbot但未配置自动更新）
+30 2 * * * certbot renew --quiet
+
+# 每月第一天清理旧日志文件
+0 1 1 * * find /var/log -name "easycook-*.log.*" -type f -mtime +30 -delete

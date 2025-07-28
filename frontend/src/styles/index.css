@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.logo {
+  float: left;
+  margin-right: 16px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.site-layout-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+}
+
+/* 菜谱卡片样式 */
+.recipe-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card .ant-card-cover {
+  height: 200px;
+  overflow: hidden;
+}
+
+.recipe-card .ant-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-card .ant-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card .ant-card-meta {
+  flex: 1;
+}
+
+/* 步骤样式 */
+.recipe-step {
+  margin-bottom: 24px;
+}
+
+.recipe-step-image {
+  max-width: 100%;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+/* 食材列表样式 */
+.ingredient-list {
+  margin-bottom: 24px;
+}
+
+.ingredient-tag {
+  margin-bottom: 8px;
+}
+
+/* 购物清单样式 */
+.shopping-list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.shopping-list-item-purchased {
+  text-decoration: line-through;
+  color: #999;
+}
