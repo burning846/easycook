@@ -85,5 +85,7 @@ echo -e "${GREEN}===== EasyCook部署完成! =====${NC}"
 echo -e "前端网址: https://${DOMAIN}"
 echo -e "API网址: https://api.${DOMAIN}"
 
+echo -e "${YELLOW}注意: 域名已更新为 easyfood.burning233.top${NC}"
+
 echo -e "${BLUE}查看容器状态:${NC}"
 docker-compose ps

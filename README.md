@@ -14,8 +14,8 @@ EasyCook是一个帮助用户发现美食、规划菜单、管理食材的应用
 
 本项目使用以下域名结构：
 
-- 主域名：`burning233.top` - 前端应用
-- API子域名：`api.burning233.top` - 后端API服务
+- 主域名：`easyfood.burning233.top` - 前端应用
+- API子域名：`api.easyfood.burning233.top` - 后端API服务
 
 ## 部署方式
 
@@ -312,4 +312,4 @@ chmod +x upgrade-conda.sh
 
 ## 联系方式
 
-如有问题，请联系管理员：admin@burning233.top
+如有问题，请联系管理员：sbn1998@pku.edu.cn

@@ -10,8 +10,8 @@ NC="\033[0m" # No Color
 echo -e "${GREEN}===== EasyCook Conda部署脚本 =====${NC}"
 
 # 设置变量
-DOMAIN="burning233.top"
-API_DOMAIN="api.burning233.top"
+DOMAIN="easyfood.burning233.top"
+API_DOMAIN="api.easyfood.burning233.top"
 APP_DIR="/var/www/easycook"
 FRONTEND_DIR="${APP_DIR}/frontend"
 BACKEND_DIR="${APP_DIR}/backend"
