@@ -19,7 +19,30 @@ EasyCook是一个帮助用户发现美食、规划菜单、管理食材的应用
 
 ## 部署方式
 
-### 方式一：传统部署（使用Nginx和Gunicorn）
+### 方式一：Vercel部署（推荐云端部署）
+
+使用Vercel平台快速部署前端和后端，无需服务器配置。
+
+1. 克隆代码库并推送到GitHub
+
+```bash
+git clone <repository-url>
+cd easycook
+# 推送到你的GitHub仓库
+```
+
+2. 在Vercel上导入GitHub仓库
+
+3. 配置环境变量
+   - `SECRET_KEY`: 设置安全密钥
+   - `DATABASE_URL`: 设置数据库连接URL
+   - 其他必要的环境变量
+
+4. 部署完成后，可以设置自定义域名
+
+详细说明请参考 [VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md)
+
+### 方式二：传统部署（使用Nginx和Gunicorn）
 
 1. 克隆代码库
 
@@ -42,7 +65,7 @@ chmod +x deploy.sh
 ./deploy.sh
 ```
 
-### 方式二：Docker部署（推荐）
+### 方式三：Docker部署（推荐本地部署）
 
 1. 克隆代码库
 
@@ -66,7 +89,7 @@ chmod +x deploy-docker.sh
 ./deploy-docker.sh
 ```
 
-### 方式三：Conda部署
+### 方式四：Conda部署
 
 使用Conda环境部署前端和后端，适合熟悉Conda的用户。
 
