@@ -22,10 +22,5 @@
       "src": "/(.*)", 
       "dest": "frontend/dist/$1" 
     }
-  ],
-  "env": {
-    "DOMAIN": "easyfood.burning233.top",
-    "FRONTEND_URL": "https://easyfood.burning233.top",
-    "API_URL": "https://easyfood.burning233.top/api"
-  }
+  ]
 }

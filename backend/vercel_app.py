@@ -1,5 +1,5 @@
 from app import create_app
-from flask import request, jsonify
+from flask import jsonify
 
 app = create_app()
 
@@ -9,7 +9,3 @@ app = create_app()
 @app.route('/')
 def home():
     return jsonify({'message': 'EasyCook API is running on Vercel'})
-
-# 处理Vercel的函数处理程序
-def handler(request, context):
-    return app(request)

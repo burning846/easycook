@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { API_BASE_URL } from './api.config';
+// 根据环境选择合适的API配置
+import API_BASE_URL from './api.config';
 
 // 创建axios实例
 const api = axios.create({
