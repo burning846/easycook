@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="EasyCook - 帮助做饭的小程序" />
-    <title>EasyCook - 帮助做饭的小程序</title>
+    <title>页面未找到 - EasyCook</title>
     <script>
-      // 处理从404页面重定向回来的情况
-      (function() {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
-        }
-      })();
+      // 单页应用重定向脚本
+      sessionStorage.redirect = location.href;
     </script>
+    <meta http-equiv="refresh" content="0;URL='/'" />
   </head>
   <body>
     <noscript>您需要启用 JavaScript 来运行此应用。</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div style="text-align: center; padding-top: 100px;">
+        <h1>页面未找到</h1>
+        <p>正在重定向到首页...</p>
+      </div>
+    </div>
   </body>
 </html>
