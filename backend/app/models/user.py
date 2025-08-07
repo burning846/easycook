@@ -1,7 +1,8 @@
-from flask_sqlalchemy import SQLAlchemy
-from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+
+# 延迟导入db以避免循环导入
+from app import db
 
 class User(db.Model):
     """用户模型"""

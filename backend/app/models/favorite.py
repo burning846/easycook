@@ -1,6 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
-from app import db
 from datetime import datetime
+from app import db
 
 class FavoriteRecipe(db.Model):
     """用户收藏菜谱模型"""
