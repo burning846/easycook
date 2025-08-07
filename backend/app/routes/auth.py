@@ -8,10 +8,18 @@ from app.routes import api_bp
 # Google OAuth配置
 # 从Flask配置中获取
 def get_google_config():
+    client_id = current_app.config.get('GOOGLE_CLIENT_ID')
+    client_secret = current_app.config.get('GOOGLE_CLIENT_SECRET')
+    discovery_url = current_app.config.get('GOOGLE_DISCOVERY_URL')
+    
+    # 调试日志
+    current_app.logger.info(f"Google Client ID configured: {bool(client_id and client_id != 'your-google-client-id')}")
+    current_app.logger.info(f"Google Client Secret configured: {bool(client_secret and client_secret != 'your-google-client-secret')}")
+    
     return {
-        'client_id': current_app.config.get('GOOGLE_CLIENT_ID'),
-        'client_secret': current_app.config.get('GOOGLE_CLIENT_SECRET'),
-        'discovery_url': current_app.config.get('GOOGLE_DISCOVERY_URL')
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'discovery_url': discovery_url
     }
 
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
