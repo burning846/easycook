@@ -32,8 +32,7 @@ def google_login():
     """启动Google OAuth流程"""
     # 获取Google的授权端点
     try:
-        discovery_doc = requests.get(GOOGLE_DISCOVERY_URL).json()
-        authorization_endpoint = discovery_doc["authorization_endpoint"]
+        current_app.logger.info("开始Google OAuth登录流程")
         
         # 获取Google配置
         google_config = get_google_config()
@@ -42,8 +41,21 @@ def google_login():
             current_app.logger.error("Google Client ID未配置")
             return jsonify({"error": "Google OAuth未正确配置"}), 500
         
+        current_app.logger.info(f"正在获取Google发现文档: {GOOGLE_DISCOVERY_URL}")
+        discovery_response = requests.get(GOOGLE_DISCOVERY_URL)
+        current_app.logger.info(f"发现文档响应状态: {discovery_response.status_code}")
+        
+        if discovery_response.status_code != 200:
+            current_app.logger.error(f"无法获取Google发现文档: {discovery_response.text}")
+            return jsonify({"error": "无法获取Google配置"}), 500
+            
+        discovery_doc = discovery_response.json()
+        authorization_endpoint = discovery_doc["authorization_endpoint"]
+        current_app.logger.info(f"授权端点: {authorization_endpoint}")
+        
         # 构建授权URL
         redirect_uri = url_for('api.google_callback', _external=True)
+        current_app.logger.info(f"重定向URI: {redirect_uri}")
         
         params = {
             "response_type": "code",
@@ -62,7 +74,10 @@ def google_login():
         return redirect(auth_url)
     except Exception as e:
         current_app.logger.error(f"Google OAuth初始化失败: {str(e)}")
-        return jsonify({"error": "Google登录初始化失败"}), 500
+        current_app.logger.error(f"错误类型: {type(e).__name__}")
+        import traceback
+        current_app.logger.error(f"完整错误堆栈: {traceback.format_exc()}")
+        return jsonify({"error": "Google登录初始化失败", "details": str(e)}), 500
 
 @api_bp.route('/auth/google/callback', methods=['GET'])
 def google_callback():
