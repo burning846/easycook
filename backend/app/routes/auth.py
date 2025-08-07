@@ -6,9 +6,14 @@ from app.models.user import User
 from app.routes import api_bp
 
 # Google OAuth配置
-# 实际应用中，这些应该从环境变量或配置文件中获取
-GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID"
-GOOGLE_CLIENT_SECRET = "YOUR_GOOGLE_CLIENT_SECRET"
+# 从Flask配置中获取
+def get_google_config():
+    return {
+        'client_id': current_app.config.get('GOOGLE_CLIENT_ID'),
+        'client_secret': current_app.config.get('GOOGLE_CLIENT_SECRET'),
+        'discovery_url': current_app.config.get('GOOGLE_DISCOVERY_URL')
+    }
+
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 
 @api_bp.route('/auth/google', methods=['GET'])
@@ -19,12 +24,19 @@ def google_login():
         discovery_doc = requests.get(GOOGLE_DISCOVERY_URL).json()
         authorization_endpoint = discovery_doc["authorization_endpoint"]
         
+        # 获取Google配置
+        google_config = get_google_config()
+        
+        if not google_config['client_id'] or google_config['client_id'] == 'your-google-client-id':
+            current_app.logger.error("Google Client ID未配置")
+            return jsonify({"error": "Google OAuth未正确配置"}), 500
+        
         # 构建授权URL
         redirect_uri = url_for('api.google_callback', _external=True)
         
         params = {
             "response_type": "code",
-            "client_id": GOOGLE_CLIENT_ID,
+            "client_id": google_config['client_id'],
             "redirect_uri": redirect_uri,
             "scope": "openid email profile",
             "prompt": "select_account"
@@ -52,13 +64,20 @@ def google_callback():
         discovery_doc = requests.get(GOOGLE_DISCOVERY_URL).json()
         token_endpoint = discovery_doc["token_endpoint"]
         
+        # 获取Google配置
+        google_config = get_google_config()
+        
+        if not google_config['client_id'] or not google_config['client_secret']:
+            current_app.logger.error("Google OAuth配置不完整")
+            return jsonify({"error": "Google OAuth配置错误"}), 500
+        
         # 构建token请求
         redirect_uri = url_for('api.google_callback', _external=True)
         
         token_data = {
             "code": code,
-            "client_id": GOOGLE_CLIENT_ID,
-            "client_secret": GOOGLE_CLIENT_SECRET,
+            "client_id": google_config['client_id'],
+            "client_secret": google_config['client_secret'],
             "redirect_uri": redirect_uri,
             "grant_type": "authorization_code"
         }
