@@ -1,6 +1,7 @@
 from flask import jsonify, request, redirect, url_for, current_app
 import requests
 import json
+from urllib.parse import urlencode
 from app import db
 from app.models.user import User
 from app.routes import api_bp
@@ -8,13 +9,15 @@ from app.routes import api_bp
 # Google OAuth配置
 # 从Flask配置中获取
 def get_google_config():
+    """获取Google OAuth配置"""
     client_id = current_app.config.get('GOOGLE_CLIENT_ID')
     client_secret = current_app.config.get('GOOGLE_CLIENT_SECRET')
     discovery_url = current_app.config.get('GOOGLE_DISCOVERY_URL')
     
-    # 调试日志
-    current_app.logger.info(f"Google Client ID configured: {bool(client_id and client_id != 'your-google-client-id')}")
-    current_app.logger.info(f"Google Client Secret configured: {bool(client_secret and client_secret != 'your-google-client-secret')}")
+    current_app.logger.info(f"Google Client ID: {client_id[:10]}..." if client_id else "Google Client ID: None")
+    current_app.logger.info(f"Google Client ID配置: {bool(client_id and client_id != 'your-google-client-id')}")
+    current_app.logger.info(f"Google Client Secret配置: {bool(client_secret and client_secret != 'your-google-client-secret')}")
+    current_app.logger.info(f"Discovery URL: {discovery_url}")
     
     return {
         'client_id': client_id,
@@ -51,7 +54,9 @@ def google_login():
         }
         
         # 构建完整的授权URL
-        auth_url = f"{authorization_endpoint}?" + "&".join([f"{key}={value}" for key, value in params.items()])
+        auth_url = f"{authorization_endpoint}?{urlencode(params)}"
+        
+        current_app.logger.info(f"重定向到Google授权页面: {auth_url}")
         
         # 重定向到Google授权页面
         return redirect(auth_url)
