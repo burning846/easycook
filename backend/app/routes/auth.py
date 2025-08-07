@@ -6,6 +6,12 @@ from app import db
 from app.models.user import User
 from app.routes import api_bp
 
+# 添加一个简单的测试路由
+@api_bp.route('/test', methods=['GET'])
+def test_route():
+    """测试路由"""
+    return jsonify({'message': 'API is working', 'status': 'ok'})
+
 # Google OAuth配置
 # 从Flask配置中获取
 def get_google_config():
