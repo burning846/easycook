@@ -16,6 +16,9 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     CORS(app)
     
+    # 导入模型以确保它们被注册到SQLAlchemy
+    from app.models import user, recipe, ingredient, favorite
+    
     # 注册蓝图
     from app.routes import api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
