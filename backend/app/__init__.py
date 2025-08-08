@@ -16,10 +16,9 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     CORS(app)
     
-    # 在应用上下文中导入模型
-    with app.app_context():
-        # 导入模型以确保它们被注册到SQLAlchemy
-        from app.models import user, recipe, ingredient, favorite
+    # 导入模型以确保它们被注册到SQLAlchemy
+    # 移到应用上下文外部，避免循环导入
+    from app.models import user, recipe, ingredient, favorite
     
     # 注册蓝图
     from app.routes import api_bp
