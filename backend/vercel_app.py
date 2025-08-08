@@ -76,7 +76,62 @@ except Exception as e:
         @api_bp.route('/auth/google/callback', methods=['GET'])
         def google_callback():
             """处理Google OAuth回调"""
-            return jsonify({"message": "Google callback - 功能开发中"})
+            # 获取授权码
+            code = request.args.get("code")
+            if not code:
+                return jsonify({"error": "未收到授权码"}), 400
+            
+            try:
+                # 获取Google的token端点
+                discovery_doc = requests.get(app.config['GOOGLE_DISCOVERY_URL']).json()
+                token_endpoint = discovery_doc["token_endpoint"]
+                
+                # 构建token请求
+                redirect_uri = url_for('api.google_callback', _external=True)
+                
+                token_data = {
+                    "code": code,
+                    "client_id": app.config['GOOGLE_CLIENT_ID'],
+                    "client_secret": app.config['GOOGLE_CLIENT_SECRET'],
+                    "redirect_uri": redirect_uri,
+                    "grant_type": "authorization_code"
+                }
+                
+                # 发送token请求
+                token_response = requests.post(token_endpoint, data=token_data)
+                token_json = token_response.json()
+                
+                if 'access_token' not in token_json:
+                    logger.error(f"Token response error: {token_json}")
+                    return jsonify({"error": "获取访问令牌失败"}), 400
+                
+                # 获取用户信息
+                userinfo_endpoint = discovery_doc["userinfo_endpoint"]
+                userinfo_response = requests.get(
+                    userinfo_endpoint,
+                    headers={"Authorization": f"Bearer {token_json['access_token']}"}
+                )
+                userinfo = userinfo_response.json()
+                
+                # 简化处理：直接重定向到前端并传递用户信息
+                frontend_url = app.config.get('FRONTEND_URL', 'https://easycook-mu.vercel.app')
+                user_data = {
+                    'id': userinfo.get('sub'),
+                    'name': userinfo.get('name'),
+                    'email': userinfo.get('email'),
+                    'picture': userinfo.get('picture')
+                }
+                
+                # 重定向到前端登录成功页面
+                import urllib.parse
+                user_params = urllib.parse.urlencode(user_data)
+                return redirect(f"{frontend_url}/login-success?{user_params}")
+                
+            except Exception as e:
+                logger.error(f"Google OAuth回调处理失败: {str(e)}")
+                import traceback
+                logger.error(f"完整错误堆栈: {traceback.format_exc()}")
+                return jsonify({"error": "Google登录处理失败", "details": str(e)}), 500
         
         app.register_blueprint(api_bp, url_prefix='/api')
         logger.info("Successfully registered simplified auth routes")
