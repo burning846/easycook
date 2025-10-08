@@ -19,3 +19,7 @@ class Config:
     
     # 前端URL配置
     FRONTEND_URL = os.environ.get('FRONTEND_URL') or 'http://localhost:3000'
+    
+    # DeepSeek API配置
+    DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY') or 'your-deepseek-api-key'
+    DEEPSEEK_API_URL = os.environ.get('DEEPSEEK_API_URL') or 'https://api.deepseek.com/v1/chat/completions'

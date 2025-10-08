@@ -1,0 +1,355 @@
+/* 菜谱规划结果样式 */
+.meal-plan-result {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+}
+
+.result-header h2 {
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-secondary {
+  background: #f8f9fa;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* 标签页样式 */
+.result-tabs {
+  display: flex;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  color: #667eea;
+  background: #f8f9ff;
+}
+
+.tab-btn.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+  background: #f8f9ff;
+}
+
+/* 菜谱规划网格 */
+.meal-plan-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.day-card {
+  border: 2px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.day-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.day-card.expanded {
+  border-color: #667eea;
+}
+
+.day-header {
+  background: #f8f9ff;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.day-header:hover {
+  background: #e8f0ff;
+}
+
+.day-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.expand-icon {
+  font-size: 1.5rem;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.day-content {
+  padding: 1.5rem;
+  background: white;
+}
+
+.meal-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.meal-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.meal-type {
+  color: #667eea;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dish-name {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.ingredients {
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.ingredients .label {
+  color: #666;
+  font-weight: 500;
+  min-width: fit-content;
+}
+
+.ingredients .value {
+  color: #333;
+  flex: 1;
+}
+
+.meal-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.meta-item .icon {
+  font-size: 1rem;
+}
+
+/* 购物清单样式 */
+.shopping-list {
+  max-width: 800px;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.shopping-item {
+  background: #f8f9ff;
+  border: 1px solid #e1e8ff;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.shopping-item:hover {
+  background: #e8f0ff;
+  border-color: #667eea;
+}
+
+.item-icon {
+  font-size: 1.2rem;
+}
+
+.item-name {
+  color: #333;
+  font-weight: 500;
+}
+
+/* 建议提示样式 */
+.tips-section {
+  max-width: 800px;
+}
+
+.tip-group {
+  margin-bottom: 2rem;
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border-left: 4px solid #667eea;
+}
+
+.tip-group h4 {
+  color: #667eea;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.tip-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tip-group li {
+  padding: 0.5rem 0;
+  color: #555;
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.5;
+}
+
+.tip-group li::before {
+  content: '→';
+  color: #667eea;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* 文本格式菜谱 */
+.text-format-plan {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid #e1e8ff;
+}
+
+.text-format-plan pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+
+/* 无数据提示 */
+.no-data {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* 结果页脚 */
+.result-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.ai-note {
+  color: #666;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.ai-icon {
+  font-size: 1.1rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .result-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .header-actions {
+    justify-content: center;
+  }
+  
+  .result-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .list-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .meal-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .day-header {
+    padding: 1rem;
+  }
+  
+  .day-content {
+    padding: 1rem;
+  }
+}

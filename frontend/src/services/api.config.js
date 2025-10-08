@@ -7,7 +7,12 @@ const getApiBaseUrl = () => {
     return window.ENV.API_URL;
   }
   
-  // 开发环境默认使用相对路径，通过webpack代理转发
+  // 开发环境使用完整的后端URL
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://127.0.0.1:5000/api';
+  }
+  
+  // 生产环境使用相对路径
   return '/api';
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Avatar, Dropdown } from 'antd';
-import { HomeOutlined, BookOutlined, ShoppingOutlined, UserOutlined, HeartOutlined, DatabaseOutlined, LoginOutlined, LogoutOutlined } from '@ant-design/icons';
+import { HomeOutlined, BookOutlined, ShoppingOutlined, UserOutlined, HeartOutlined, DatabaseOutlined, LoginOutlined, LogoutOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
@@ -63,6 +63,11 @@ function AppHeader() {
       key: '/shopping-list',
       icon: <ShoppingOutlined />,
       label: <Link to="/shopping-list">购物清单</Link>,
+    },
+    {
+      key: '/meal-plan',
+      icon: <CalendarOutlined />,
+      label: <Link to="/meal-plan">菜谱规划</Link>,
     },
     {
       key: '/favorites',

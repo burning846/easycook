@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Row, Col, Card, Button, Spin, Empty } from 'antd';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { recipeApi } from '../services/api';
 
 const { Title, Paragraph } = Typography;
 const { Meta } = Card;
@@ -15,12 +15,11 @@ function HomePage() {
     const fetchFeaturedRecipes = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/recipes', {
-          params: { per_page: 6 }
-        });
-        setFeaturedRecipes(response.data.items);
+        const response = await recipeApi.getRecipes({ per_page: 6 });
+        setFeaturedRecipes(response.items || []);
       } catch (error) {
         console.error('获取推荐菜谱失败:', error);
+        setFeaturedRecipes([]);
       } finally {
         setLoading(false);
       }

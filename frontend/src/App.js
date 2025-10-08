@@ -10,6 +10,7 @@ import IngredientPage from './pages/IngredientPage';
 import ShoppingListPage from './pages/ShoppingListPage';
 import FavoritePage from './pages/FavoritePage';
 import DataManagementPage from './pages/DataManagementPage';
+import MealPlanPage from './pages/MealPlanPage';
 import LoginPage from './pages/LoginPage';
 import LoginSuccessPage from './pages/LoginSuccessPage';
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/shopping-list" element={<ShoppingListPage />} />
             <Route path="/favorites" element={<FavoritePage />} />
             <Route path="/data-management" element={<DataManagementPage />} />
+            <Route path="/meal-plan" element={<MealPlanPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login-success" element={<LoginSuccessPage />} />
           </Routes>
