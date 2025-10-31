@@ -1,5 +1,9 @@
 # 环境文件
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # 依赖目录
 node_modules/
@@ -9,6 +13,7 @@ __pycache__/
 # 数据库文件
 *.db
 *.sqlite3
+instance/
 
 # 日志文件
 logs/
@@ -36,4 +41,10 @@ frontend/dist/
 # 备份文件
 backups/
 *.bak
+
+# Vercel部署文件
 .vercel
+
+# 临时文件
+*.tmp
+*.temp

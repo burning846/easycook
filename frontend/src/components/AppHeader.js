@@ -1,33 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Layout, Menu, Button, Avatar, Dropdown } from 'antd';
 import { HomeOutlined, BookOutlined, ShoppingOutlined, UserOutlined, HeartOutlined, DatabaseOutlined, LoginOutlined, LogoutOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const { Header } = Layout;
 
 function AppHeader() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(null);
-  
-  useEffect(() => {
-    // 从本地存储获取用户信息
-    const userJson = localStorage.getItem('currentUser');
-    if (userJson) {
-      try {
-        const user = JSON.parse(userJson);
-        setCurrentUser(user);
-      } catch (e) {
-        console.error('解析用户信息失败', e);
-        localStorage.removeItem('currentUser');
-      }
-    }
-  }, []);
+  const { currentUser, logout } = useAuth();
   
   const handleLogout = () => {
-    localStorage.removeItem('currentUser');
-    setCurrentUser(null);
-    navigate('/');
+    logout();
+    navigate('/login');
   };
   
   const userMenuItems = [

@@ -3,6 +3,7 @@ import { Layout, Typography, Form, Input, Button, Divider, message, Card, Row, C
 import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { userApi } from '../services/api';
+import { useAuth } from '../contexts/AuthContext';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -12,6 +13,15 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
+  
+  // 如果用户已经登录，重定向到首页
+  useEffect(() => {
+    if (isAuthenticated()) {
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, location]);
   
   // 检查URL参数中是否有用户ID（Google登录回调）
   useEffect(() => {
@@ -25,11 +35,12 @@ const LoginPage = () => {
           const response = await userApi.getUser(userId);
           const user = response.data;
           
-          // 保存用户信息到本地存储
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          // 使用认证上下文保存用户信息
+          login(user);
           
           message.success(`欢迎回来，${user.username}！`);
-          navigate('/');
+          const from = location.state?.from?.pathname || '/';
+          navigate(from, { replace: true });
         } catch (error) {
           console.error('获取用户信息失败:', error);
           message.error('登录失败，请重试');
@@ -38,7 +49,7 @@ const LoginPage = () => {
       
       fetchUserInfo();
     }
-  }, [location, navigate]);
+  }, [location, navigate, login]);
   
   const handleSubmit = async (values) => {
     setLoading(true);
@@ -53,11 +64,12 @@ const LoginPage = () => {
           email: 'test@example.com'
         };
         
-        // 保存用户信息到本地存储
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        // 使用认证上下文保存用户信息
+        login(user);
         
         message.success(`欢迎回来，${user.username}！`);
-        navigate('/');
+        const from = location.state?.from?.pathname || '/';
+        navigate(from, { replace: true });
       } else {
         message.error('用户名或密码错误');
       }
@@ -88,11 +100,12 @@ const LoginPage = () => {
       
       const user = response.data;
       
-      // 保存用户信息到本地存储
-      localStorage.setItem('currentUser', JSON.stringify(user));
+      // 使用认证上下文保存用户信息
+      login(user);
       
       message.success('注册成功！');
-      navigate('/');
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
     } catch (error) {
       if (error.errorFields) {
         // 表单验证错误
